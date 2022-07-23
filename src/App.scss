@@ -1,0 +1,195 @@
+@import './scss/';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    font-size: 100%;
+
+    @include tablet {
+        font-size: 80%;
+    }
+
+    @include mobile {
+        font-size: 60%;
+    }
+}
+
+body {
+    font-family: $font-family;
+    font-weight: 400;
+    font-weight: 1.5;
+    scroll-behavior: smooth;
+
+    transition: all ease-in .2s;
+}
+
+// button primary
+.btn {
+    padding: 8px 32px;
+    font-size: 1.3rem;
+    font-weight: bolder;
+    border-radius: 15px;
+    letter-spacing: 1px;
+    outline: none;
+    border: none;
+    transition: all ease-in-out .2s;
+}
+
+.btn--lg {
+    padding: 10px 32px;
+    font-size: 1.4rem;
+    border: 3px solid $dark-main-color;
+}
+
+// theme light
+body[data-theme="light"] {
+    background-color: $light-bg;
+    color: $dark-color;
+
+    .header {
+        border-bottom: 1px solid rgba($color: $dark-color, $alpha: 0.5);
+    }
+
+    .footer {
+        border-top: 1px solid rgba($color: $dark-color, $alpha: 0.5);
+    }
+
+    a:hover {
+        color: $light-main-color;
+    }
+
+    .btn {
+        background-color: $light-main-color;
+        color: $light-color;
+        
+        &:hover {
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba($color: $light-main-color, $alpha: 0.5);
+        }
+    }
+
+    .btn--outline {
+        background-color: unset;
+    }
+
+    .movie-card-img {
+        box-shadow: 0 0 5px rgba($color: $dark-color, $alpha: 0.5);
+    }
+}
+
+// theme dark
+body[data-theme="dark"] {
+    background-color: $dark-bg;
+    color: $light-color;
+
+    .header {
+        border-bottom: 1px solid rgba($color: $light-color, $alpha: 0.5);
+    }
+
+    .footer {
+        border-top: 1px solid rgba($color: $light-color, $alpha: 0.5);
+    }
+
+    a:hover {
+        color: $dark-main-color;
+    }
+
+    .btn {
+        background-color: $dark-main-color;
+        color: $light-color;
+        
+        &:hover {
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba($color: $dark-main-color, $alpha: 0.5);
+        }
+    }
+
+    .btn--outline {
+        background-color: unset;
+    }
+
+    // btn change theme -- set color
+    .header__btn {
+        & .label {
+            background-color: $light-color;
+
+            & .ball {
+                background-color: $dark-color;
+            }
+        }
+    }
+}
+
+// set title loading
+.loading {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 5rem 0;
+}
+
+a {
+    text-decoration: none;
+    color:unset
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+iframe {
+    border: none;
+}
+
+.container {
+    max-width: 1660px;
+    margin: auto;
+}
+
+.section {
+    padding: 0 2rem;
+}
+
+.section.section--sm {
+    padding: 0 5rem;
+    @include tablet {
+        padding: 0 4rem;
+    }
+    @include mobile {
+        padding: 0 3rem;
+    }
+    @include special {
+        padding: 0 2rem;
+    }
+}
+
+.main {
+    min-height: 1200px;
+    margin: 3rem 0;
+}
+
+
+// -------------------------- css btn scroll top
+.scroll-top {
+    background-color: $light-bg;
+    height: 50px;
+    position: fixed;
+    z-index: 999;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba($color: $dark-color, $alpha: 1.0);
+    
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+

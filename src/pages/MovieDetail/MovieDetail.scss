@@ -1,0 +1,160 @@
+@import '../../scss/';
+
+
+.breadcumb {
+    margin: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    gap: 8px;
+    font-weight: 500;
+
+    span {
+        font-weight: 700;
+    }
+}
+
+.movie {
+    position: relative;
+    width: 100%;
+    background-position: center center;
+    min-height: 400px;
+    background-size: cover;
+    border-radius: 30px;
+    overflow: hidden;
+
+    & .overlay {
+        position: absolute;
+        background-color: rgba($color: $dark-color, $alpha: 0.8);
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    & .detail {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        padding: 2rem;
+        @include flex(center, center);
+
+        @include tablet {
+            flex-direction: column;
+        }
+
+        & .thumb-img {
+            flex: 1;
+            @include flex(center, center);
+            position: relative;
+            img {
+                width: 80%;
+                height: 80%;
+                box-shadow: 0 0 10px rgba($color: $light-color, $alpha: 0.2);
+                border-radius: 20px;
+
+                @include tablet {
+                    width: 70%;
+                }
+            }
+        }
+
+        & .info {
+            flex: 2;
+            color: $light-color;
+            
+            &-top {
+                h3 {
+                    margin: 10px 0;
+                }
+                p {
+                    font-size: 1.2rem;
+                    line-height: 1.8rem;
+                    text-align: justify;
+                    overflow-y: scroll;
+                    max-height: 200px;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+                    cursor:grab;
+                    user-select: none;
+                }
+                padding-bottom: 1rem;
+                border-bottom: 1px solid rgba($color: $light-color, $alpha: 0.2);
+                @include tablet {
+                    text-align: center;
+                    h1 {
+                        margin-top: 2rem;
+                        font-size: 2.5rem;
+                    }
+                    
+                    h3 {
+                        font-size: 1.6rem;
+                    }
+
+                    p {
+                        font-size: 1.5rem;
+                        line-height: 2.3rem;
+                    }
+                }
+
+                @include mobile {
+                    h1 {
+                        font-size: 3rem;
+                    }
+                    
+                    h3 {
+                        font-size: 2rem;
+                    }
+
+                    p {
+                        font-size: 1.8rem;
+                        line-height: 2.5rem;
+                    }
+                }
+            }
+
+            &-bot {
+                padding-top: 1rem;
+                @include flex(center, space-between);
+                font-size: 1.1rem;
+                flex-wrap: wrap;
+
+                p {
+                    padding: 4px;
+                }
+
+                @include tablet {
+                    font-size: 1.4rem;
+                }
+            }
+
+            &-btn-group {
+                @include flex(center, center);
+                gap: 2rem;
+                padding-top: 2rem;
+
+                a:hover {
+                    color: unset;
+                }
+            }
+        }
+    }
+}
+
+.trailer {
+    margin-top: 3rem;
+    h1 {
+        position: relative;
+        letter-spacing: 5px;
+        font-size: 2.5rem;
+        width: fit-content;
+
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 4px;
+            background-color: red;
+        }
+    }
+}

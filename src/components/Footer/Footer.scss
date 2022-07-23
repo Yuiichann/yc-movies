@@ -1,0 +1,6 @@
+@import '../../scss/';
+
+.footer {
+    height: $header-height;
+    @include flex(center, center);
+}

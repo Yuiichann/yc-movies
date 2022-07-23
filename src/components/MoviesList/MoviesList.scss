@@ -1,0 +1,15 @@
+@import '../../scss/';
+
+.movies-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+
+    @include tablet {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    @include special {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}

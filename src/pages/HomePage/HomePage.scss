@@ -1,0 +1,8 @@
+@import '../../scss/';
+
+.main {
+    & .load-more {
+        @include flex(center, center);
+        margin: 8px 0;
+    }
+}

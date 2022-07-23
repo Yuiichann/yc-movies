@@ -1,0 +1,66 @@
+@import '../../scss/';
+
+.header {
+    height: $header-height;
+    @include flex(center, space-between);
+    
+    a {
+        padding: 10px;
+        font-size: 1.2rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+
+    &__logo {
+        flex: 1;
+        a {
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+
+        @include mobile {
+            a {
+                font-size: 2.5rem;
+            }
+        }
+    }
+
+    &__btn {
+        & .checkbox {
+            opacity: 0;
+            position: absolute;
+
+            &:checked + .label .ball {
+                transform: translateX(19px);
+            }
+        }
+        
+        & .label {
+            background-color: $dark-color;
+            border-radius: 38px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px;
+            position: relative;
+            height: 19px;
+            width: 38px;
+            transform: scale(1.5);
+
+            & .ball {
+                background-color: $light-color;
+                border-radius: 50%;
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                height: 15px;
+                width: 15px;
+                transform: translateX(0px);
+                transition: transform 0.2s linear;
+            }
+        }
+
+
+    }
+} 
