@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, RefObject, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ophimApi from '../../api/ophimApi';
 import Slider from '../../components/Slider/Slider';
@@ -9,6 +9,7 @@ import { Movie } from './MovieInterface';
 const MovieDetail = () => {
   const { slug } = useParams();
   const [movieInfo, setMovieInfo] = useState<Movie | null>(null);
+  const btnTrailer = useRef<HTMLHeadingElement | null>(null);
 
   // scroll to top :<
   useEffect(() => {
@@ -17,6 +18,7 @@ const MovieDetail = () => {
 
   // call api get Movie with slug
   useEffect(() => {
+    setMovieInfo(null);
     const getMovie = async () => {
       if (slug) {
         const res = await ophimApi.getOneMovie(slug);
@@ -38,6 +40,12 @@ const MovieDetail = () => {
       document.title = 'YC Movies';
     };
   }, [movieInfo]);
+
+  const handleClickTrailer = () => {
+    btnTrailer.current?.scrollIntoView({
+      behavior: 'smooth',
+    });
+  };
 
   console.warn('re-render Movie-detail - KHÓK TIẾNG CHÓ');
 
@@ -78,24 +86,26 @@ const MovieDetail = () => {
                   <p>Năm: {movieInfo.year}</p>
                 </div>
                 <div className="info-btn-group">
-                  <Link to="/" className="btn btn--lg">
+                  <Link to={`/xem-phim/${movieInfo.slug}`} className="btn btn--lg">
                     Xem Phim
                   </Link>
-                  <Link to="/" className="btn btn--lg btn--outline">
+                  <button className="btn btn--lg btn--outline" onClick={handleClickTrailer}>
                     Trailer
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Trailer */}
-          <div className="trailer">
-            <h1>Trailer</h1>
+          <div className="trailer" id="#trailer" ref={btnTrailer}>
+            <h1 className="title-movie">Trailer</h1>
             <Video url_yt={movieInfo.trailer_url} />
           </div>
 
+          {/*Slider */}
           <div className="swiper">
+            <h1 className="title-movie">Phim mới cập nhật</h1>
             <Slider />
           </div>
         </>

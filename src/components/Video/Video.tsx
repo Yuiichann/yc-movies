@@ -29,7 +29,11 @@ const Video = (props: Props) => {
 
   return (
     <div className="video">
-      {url ? <iframe src={url} allowFullScreen></iframe> : <h3>Không có video</h3>}
+      {url ? (
+        <iframe src={url} allowFullScreen allow={url_video ? 'autoplay' : ''}></iframe>
+      ) : (
+        <h3>Không có video</h3>
+      )}
     </div>
   );
 };

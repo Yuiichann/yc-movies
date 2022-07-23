@@ -1,0 +1,10 @@
+@import '../../scss/';
+
+.slider-item {
+    margin: 2rem 0;
+    width: 220px;
+
+    @include mobile {
+        width: 170px;
+    }
+}

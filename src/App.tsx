@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 import ophimApi from './api/ophimApi';
 import './App.scss';
 import { addListMovies } from './app/movieSlice';
@@ -9,6 +9,7 @@ import Header from './components/Header/Header';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import HomePage from './pages/HomePage/HomePage';
 import MovieDetail from './pages/MovieDetail/MovieDetail';
+import WatchMovie from './pages/WatchMovie/WatchMovie';
 
 function App() {
   const [showBtnScroll, setShowBtnScroll] = useState<boolean>(false);
@@ -51,6 +52,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage isLoadMore={handleLoadMore} />} />
             <Route path="/phim/:slug" element={<MovieDetail />} />
+            <Route path="/xem-phim/:slug" element={<WatchMovie />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
           <Footer />

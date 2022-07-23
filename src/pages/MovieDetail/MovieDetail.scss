@@ -1,6 +1,22 @@
 @import '../../scss/';
 
 
+.title-movie {
+    position: relative;
+    letter-spacing: 5px;
+    font-size: 2.5rem;
+    width: fit-content;
+
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 4px;
+        background-color: red;
+    }
+}
+
 .breadcumb {
     margin: 1rem;
     font-size: 1.2rem;
@@ -71,6 +87,11 @@
                     text-align: justify;
                     overflow-y: scroll;
                     max-height: 200px;
+
+                    @include mobile {
+                        max-height: 400px;
+                    }
+
                     &::-webkit-scrollbar {
                         display: none;
                     }
@@ -142,19 +163,4 @@
 
 .trailer {
     margin-top: 3rem;
-    h1 {
-        position: relative;
-        letter-spacing: 5px;
-        font-size: 2.5rem;
-        width: fit-content;
-
-        &::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 4px;
-            background-color: red;
-        }
-    }
 }

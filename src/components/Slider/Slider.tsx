@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Movies } from '../../app/movieSlice';
 import { RootState } from '../../config/store';
 import MovieCard from '../MovieCard/MovieCard';
+import './Slider.scss';
 
 const Slider = () => {
   const movies = useSelector((state: RootState) => state.movies);
@@ -13,7 +14,7 @@ const Slider = () => {
       {movies.map(
         (movie: Movies, index) =>
           index < 9 && (
-            <SwiperSlide key={movie.slug} style={{ width: '170px' }}>
+            <SwiperSlide key={movie.slug} className="slider-item">
               <MovieCard name={movie.name} slug={movie.slug} year={movie.year} />
             </SwiperSlide>
           )
