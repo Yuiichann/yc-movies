@@ -1,6 +1,59 @@
 @import '../../scss/';
 
 
+.full-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba($color: $dark-color, $alpha: 0.8);
+    z-index: 999;
+
+    @include flex(center, center);
+
+    & .alert {
+        margin: 0 12px;
+        padding: 2rem;
+        background-color: $light-color;
+        border-radius: 3rem;
+        color: $dark-color;
+
+        h2 {
+            text-align: center;
+            color: $dark-main-color;
+            font-size: 3rem;
+            letter-spacing: 2px;
+        }
+
+        p {
+            padding: 1.5rem 0;
+            line-height: 2rem;
+            font-size: 1.4rem;
+        }
+
+        &-btn {
+            @include flex(center, center);
+            flex-wrap: wrap;
+            gap: 1rem;
+
+            & .btn--alert {
+                background-color: unset;
+                border: 2px solid $dark-main-color;
+                color: $dark-main-color;
+            }
+        }
+    }
+    
+    &.hidden {
+        display: none;
+    }
+}
+
+
+
+
 .title-movie {
     position: relative;
     letter-spacing: 5px;
@@ -9,8 +62,9 @@
 
     &::before {
         content: '';
+        z-index: -12;
         position: absolute;
-        bottom: 0;
+        bottom: 2px;
         width: 100%;
         height: 4px;
         background-color: red;
@@ -79,7 +133,7 @@
             
             &-top {
                 h3 {
-                    margin: 10px 0;
+                    margin: 20px 0;
                 }
                 p {
                     font-size: 1.2rem;

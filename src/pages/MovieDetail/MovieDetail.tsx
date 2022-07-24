@@ -10,11 +10,18 @@ const MovieDetail = () => {
   const { slug } = useParams();
   const [movieInfo, setMovieInfo] = useState<Movie | null>(null);
   const btnTrailer = useRef<HTMLHeadingElement | null>(null);
+  const [isAdult, setIsAdult] = useState<boolean>(false);
 
   // scroll to top :<
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [slug]);
+
+  // check adult
+  useEffect(() => {
+    const checkAdult = movieInfo?.category.find((item) => item.name === 'Phim 18+');
+    setIsAdult(() => !!checkAdult);
+  }, [movieInfo]);
 
   // call api get Movie with slug
   useEffect(() => {
@@ -47,10 +54,23 @@ const MovieDetail = () => {
     });
   };
 
-  console.warn('re-render Movie-detail - KHÓK TIẾNG CHÓ');
-
   return (
     <div className="main section section--sm">
+      <div className={`full-overlay ${isAdult ? '' : 'hidden'}`}>
+        <div className="alert">
+          <h2>CẢNH BÁO!!!</h2>
+          <p>Bạn đang tiến vào thế giới của người lớn. Bạn có muốn tiếp tục không?</p>
+
+          <div className="alert-btn">
+            <button className="btn" onClick={() => setIsAdult(false)}>
+              SEGGG!
+            </button>
+            <Link className="btn btn--alert" to="/">
+              Em chưa 18!
+            </Link>
+          </div>
+        </div>
+      </div>
       {!movieInfo ? (
         <h1 className="loading">Đang tải dữ liệu . . .</h1>
       ) : (
