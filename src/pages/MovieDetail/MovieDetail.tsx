@@ -1,5 +1,5 @@
-import { memo, RefObject, useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { memo, useEffect, useRef, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import ophimApi from '../../api/ophimApi';
 import Slider from '../../components/Slider/Slider';
 import Video from '../../components/Video/Video';
@@ -59,7 +59,7 @@ const MovieDetail = () => {
           <div className="breadcumb">
             <Link to="/">Home</Link>
             <span>/</span>
-            <Link to="#">{movieInfo.name}</Link>
+            <a style={{ cursor: 'pointer' }}>{movieInfo.name}</a>
           </div>
 
           {/* Infomation Movie */}

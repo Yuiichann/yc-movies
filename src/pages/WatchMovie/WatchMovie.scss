@@ -1,28 +1,51 @@
 @import '../../scss/';
 
 .episodes {
-    background-color: rgba(74, 74, 74, 0.699);
+
+    h1 {
+        padding: 1rem 0;
+    }
+
     & .ep__list {
         padding: 12px;
-        @include flex(center, space-around);
-        flex-wrap: wrap;
-        gap: 1rem;
-        min-height: 200px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        gap: 6px;
         max-height: 50vh;
         overflow-y: scroll;
 
+
         &::-webkit-scrollbar {
-            display: none;
+            width: 10px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #888; 
+        }
+           
+        &::-webkit-scrollbar-thumb {
+            background: #fff; 
+        }
+          
+        &::-webkit-scrollbar-thumb:hover {
+            background: #555; 
         }
     
         &__item {
             @include flex(center, center);
-            min-width: 40px;
-            min-height: 40px;
+            min-height: 50px;
             font-size: 1.2rem;
             border: 1px solid $light-color;
             padding: 6px;
             cursor: pointer;
+
+            &:hover {
+                background-color: rgba($color: $light-main-color, $alpha: 0.3);
+            }
+
+            &.active {
+                background-color: rgba($color: $light-main-color, $alpha: 0.3);
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ophimApi from './api/ophimApi';
 import './App.scss';
 import { addListMovies } from './app/movieSlice';
@@ -16,6 +16,7 @@ function App() {
   const [currPage, setCurrPage] = useState<number>(1);
   const dispatch = useDispatch();
 
+  // Call api get List movie Latest
   useEffect(() => {
     const getMovies = async () => {
       const res = await ophimApi.getMoviesLatest({ page: currPage });
@@ -24,10 +25,12 @@ function App() {
     getMovies();
   }, [currPage]);
 
+  // Button handle Load More Video
   const handleLoadMore = useCallback(() => {
     setCurrPage(currPage + 1);
   }, [currPage]);
 
+  // Show/Hidden button Go To Top
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= 300) {
@@ -40,6 +43,7 @@ function App() {
     window.addEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle click btn Go To Top
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
