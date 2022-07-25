@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ophimApi from '../../api/ophimApi';
 import Video from '../../components/Video/Video';
 import './WatchMovie.scss';
@@ -40,8 +40,6 @@ const WatchMovie: React.FC = () => {
     getEpisodes();
   }, []);
 
-  console.log(episodes);
-
   const handleSetEp = (url: string, slug: string) => {
     setCurrEp(() => url);
     setActive(() => slug);
@@ -61,7 +59,12 @@ const WatchMovie: React.FC = () => {
           <div className="episodes">
             {/* check du lieu cua server_data da co chua? */}
             {!currEp ? (
-              <h1 className="loading">Chưa có dữ liệu phim. Xin lỗi vì sự chậm trễ này!</h1>
+              <>
+                <h1 className="loading">Chưa có dữ liệu phim. Xin lỗi vì sự chậm trễ này!</h1>
+                <Link to="/" className="loading">
+                  Về trang chủ
+                </Link>
+              </>
             ) : (
               <>
                 <h1 style={{ textAlign: 'center' }}>SERVER: {episodes?.server_name}</h1>

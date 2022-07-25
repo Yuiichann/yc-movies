@@ -4,8 +4,11 @@ export interface Movies {
   name: string;
   origin_name: string;
   slug: string;
-  year: number;
-  _id: string;
+}
+
+export interface Movies2 extends Movies {
+  year?: number;
+  _id?: string;
 }
 
 const initialState: Movies[] = [];

@@ -24,45 +24,91 @@
         }
     }
 
-   
+    &__menu {
+        @include flex(center, center);
+        font-size: 1.3rem;
+        gap: 1rem;
 
-    &__btn {
-        margin: 0 2rem;
-        & .checkbox {
-            opacity: 0;
-            position: absolute;
+        // search
+        &__search {
+            @include flex(center, center);
+            gap: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            transition: all ease-in-out .1s;
 
-            &:checked + .label .ball {
-                transform: translateX(19px);
-            }
-        }
-        
-        & .label {
-            background-color: $dark-color;
-            border-radius: 38px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 5px;
-            position: relative;
-            height: 19px;
-            width: 38px;
-            transform: scale(1.5);
-
-            & .ball {
-                background-color: $light-color;
+            @include mobile {
+                width: 35px;
+                height: 35px;
                 border-radius: 50%;
-                position: absolute;
-                top: 2px;
-                left: 2px;
-                height: 15px;
-                width: 15px;
-                transform: translateX(0px);
-                transition: transform 0.2s linear;
+                padding: 0;
+            }
+
+            & .search-input {
+                border: none;
+                outline: none;
+                background-color: unset;
+                font-size: 1rem;
+
+                @include mobile {
+                    display: none;
+                }
+            }
+
+            & .search-btn {
+                cursor: pointer;
+                @include mobile {
+                    padding: 8px;
+                }
+            }
+
+        }
+
+        // button change theme
+        &__theme {
+            & .checkbox {
+
+                &:checked + .label i:first-child {
+                    display: none;
+                }
+                &:checked + .label i:last-child {
+                    display: block;
+                }
+            }
+
+            & .label {
+                width: 40px;
+                height: 40px;
+                @include flex(center, center);
+                cursor: pointer;
+                border-radius: 50%;
+                transition: all ease-in-out .1s;
+
+                & i:last-child {
+                    display: none;
+                }
+
+                @include mobile {
+                    width: 35px;
+                    height: 35px;
+                }
             }
         }
 
+        // User icon
+        &__user {
+            width: 40px;
+            height: 40px;
+            @include flex(center, center);
+            padding: 0 8px;
+            border-radius: 50%;
+            transition: all ease-in-out .1s;
+            cursor: pointer;
 
+            @include mobile {
+                width: 35px;
+                height: 35px;
+            }
+        }
     }
 } 

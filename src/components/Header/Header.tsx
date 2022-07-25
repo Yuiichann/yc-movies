@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 
 const Header = () => {
+  const navigate = useNavigate();
+  const [keySearch, setKeySearch] = useState<string>('');
   const [lightTheme, setLightTheme] = useState<boolean>(() => {
     if (localStorage.getItem('themeOption')) {
       let themeOption: string | null = localStorage.getItem('themeOption');
@@ -12,6 +14,7 @@ const Header = () => {
     return true;
   });
 
+  // set theme
   useEffect(() => {
     if (lightTheme) {
       document.body.dataset.theme = 'light';
@@ -20,6 +23,7 @@ const Header = () => {
     }
   }, [lightTheme]);
 
+  // handle settheme and save value in localstorage
   const handleSetTheme = () => {
     let isLightTheme = !lightTheme;
 
@@ -27,25 +31,64 @@ const Header = () => {
     setLightTheme(isLightTheme);
   };
 
+  // handle Search
+  const handleSearch = () => {
+    navigate(`/tim-kiem/${encodeURI(keySearch)}`);
+  };
+
   return (
     <div className="header section">
+      {/* Logo */}
       <div className="header__logo">
         <h2>
           <Link to="/">YC Movies</Link>
         </h2>
       </div>
 
-      <div className="header__btn">
-        <input
-          type="checkbox"
-          className="checkbox"
-          id="chk"
-          onChange={handleSetTheme}
-          checked={lightTheme ? false : true}
-        />
-        <label className="label" htmlFor="chk">
-          <div className="ball"></div>
-        </label>
+      <div className="header__menu">
+        {/* search */}
+        <div
+          className="header__menu__search"
+          onKeyUp={(e) => {
+            if (e.which == 13) {
+              handleSearch();
+            }
+          }}
+        >
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Tìm kiếm . . ."
+            value={keySearch}
+            onChange={(e) => setKeySearch(e.target.value)}
+          />
+          <div className="search-btn" onClick={handleSearch}>
+            <i className="fa-solid fa-magnifying-glass"></i>
+          </div>
+        </div>
+
+        {/* btn */}
+        <div className="header__menu__theme">
+          <input
+            type="checkbox"
+            className="checkbox"
+            id="chk"
+            onChange={handleSetTheme}
+            checked={lightTheme ? false : true}
+            hidden
+          />
+
+          <label htmlFor="chk" className="label">
+            <i className="fa-solid fa-sun"></i>
+            <i className="fa-solid fa-moon"></i>
+          </label>
+        </div>
+        {/* end btn */}
+
+        {/* user */}
+        <div className="header__menu__user">
+          <i className="fa-solid fa-user"></i>
+        </div>
       </div>
     </div>
   );

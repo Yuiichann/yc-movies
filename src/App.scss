@@ -81,8 +81,15 @@ body[data-theme="light"] {
         box-shadow: 0 0 5px rgba($color: $dark-color, $alpha: 0.5);
     }
 
-    .header__search {
-        border: 1px solid $dark-color;
+    // btn change theme
+    .header__menu__theme .label,
+    .header__menu__user,
+    .header__menu__search {
+        background-color: $dark-color;
+        color: $light-color;
+    }
+    .header__menu__search .search-input {
+        color: $light-color;
     }
 }
 
@@ -128,16 +135,21 @@ body[data-theme="dark"] {
         }
     }
 
-    .header__search {
-        border: 1px solid $light-color;
-        input {
-            color: $light-color;
-        }
+    // btn change theme
+    .header__menu__theme .label,
+    .header__menu__user,
+    .header__menu__search {
+        background-color: $light-color;
+        color: $dark-color;
+    }
+    .header__menu__search .search-input {
+        color: $dark-color;
     }
 }
 
 // set title loading
 .loading {
+    display: block;
     text-align: center;
     font-size: 2rem;
     font-weight: bold;

@@ -1,10 +1,9 @@
-import React from 'react';
-import { Movies } from '../../app/movieSlice';
+import { Movies2 } from '../../app/movieSlice';
 import MovieCard from '../MovieCard/MovieCard';
 import './MoviesList.scss';
 
 interface Props {
-  movieList: Movies[];
+  movieList: Movies2[];
 }
 
 const MoviesList = (props: Props) => {

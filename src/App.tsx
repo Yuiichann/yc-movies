@@ -9,6 +9,7 @@ import Header from './components/Header/Header';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import HomePage from './pages/HomePage/HomePage';
 import MovieDetail from './pages/MovieDetail/MovieDetail';
+import Search from './pages/Search/Search';
 import WatchMovie from './pages/WatchMovie/WatchMovie';
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage isLoadMore={handleLoadMore} />} />
             <Route path="/phim/:slug" element={<MovieDetail />} />
+            <Route path="/tim-kiem/:keyword" element={<Search />} />
             <Route path="/xem-phim/:slug" element={<WatchMovie />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>

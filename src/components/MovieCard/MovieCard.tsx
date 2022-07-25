@@ -7,7 +7,7 @@ import './MovieCard.scss';
 interface Props {
   name: string;
   slug: string;
-  year: number;
+  year: number | undefined;
 }
 
 const MovieCard = (props: Props) => {
