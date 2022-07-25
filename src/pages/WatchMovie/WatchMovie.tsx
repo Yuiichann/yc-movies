@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ophimApi from '../../api/ophimApi';
+import Loading from '../../components/Loading/Loading';
 import Video from '../../components/Video/Video';
 import './WatchMovie.scss';
 
@@ -49,7 +50,7 @@ const WatchMovie: React.FC = () => {
   return (
     <div className="main section section--sm">
       {!episodes ? (
-        <h1 className="loading">Đang tải dữ liệu phim . . .</h1>
+        <Loading />
       ) : (
         <>
           {/* Video Movie */}
@@ -59,12 +60,10 @@ const WatchMovie: React.FC = () => {
           <div className="episodes">
             {/* check du lieu cua server_data da co chua? */}
             {!currEp ? (
-              <>
-                <h1 className="loading">Chưa có dữ liệu phim. Xin lỗi vì sự chậm trễ này!</h1>
-                <Link to="/" className="loading">
-                  Về trang chủ
-                </Link>
-              </>
+              <div style={{ textAlign: 'center' }}>
+                <h1>Chưa có dữ liệu phim. Xin lỗi vì sự chậm trễ này!</h1>
+                <Link to="/">Về trang chủ</Link>
+              </div>
             ) : (
               <>
                 <h1 style={{ textAlign: 'center' }}>SERVER: {episodes?.server_name}</h1>

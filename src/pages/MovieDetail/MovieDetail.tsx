@@ -1,6 +1,7 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import ophimApi from '../../api/ophimApi';
+import Loading from '../../components/Loading/Loading';
 import Slider from '../../components/Slider/Slider';
 import Video from '../../components/Video/Video';
 import './MovieDetail.scss';
@@ -13,9 +14,6 @@ const MovieDetail = () => {
   const [isAdult, setIsAdult] = useState<boolean>(false);
 
   // scroll to top :<
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [slug]);
 
   // check adult
   useEffect(() => {
@@ -72,7 +70,7 @@ const MovieDetail = () => {
         </div>
       </div>
       {!movieInfo ? (
-        <h1 className="loading">Đang tải dữ liệu . . .</h1>
+        <Loading />
       ) : (
         <>
           {/* Breadcumb */}

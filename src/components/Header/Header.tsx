@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 
 const Header = () => {
   const navigate = useNavigate();
+  const focusRef = useRef<HTMLInputElement | null>(null);
   const [keySearch, setKeySearch] = useState<string>('');
+  const [showSearchMobile, setShowSearchMobile] = useState<boolean>(false);
   const [lightTheme, setLightTheme] = useState<boolean>(() => {
     if (localStorage.getItem('themeOption')) {
       let themeOption: string | null = localStorage.getItem('themeOption');
@@ -34,6 +36,17 @@ const Header = () => {
   // handle Search
   const handleSearch = () => {
     navigate(`/tim-kiem/${encodeURI(keySearch)}`);
+    setKeySearch('');
+
+    if (showSearchMobile) {
+      setShowSearchMobile(false);
+    }
+  };
+
+  // hanlde search in mobile
+  const handleShowSeachInput = () => {
+    setShowSearchMobile((state) => !state);
+    focusRef.current?.focus();
   };
 
   return (
@@ -64,6 +77,30 @@ const Header = () => {
           />
           <div className="search-btn" onClick={handleSearch}>
             <i className="fa-solid fa-magnifying-glass"></i>
+          </div>
+
+          <div
+            className={`search-btn-mobile ${showSearchMobile && 'active'}`}
+            onClick={handleShowSeachInput}
+          >
+            <i className="fa-solid fa-magnifying-glass"></i>
+          </div>
+
+          <div
+            className={`search-input-mobile ${showSearchMobile && 'active'}`}
+            onKeyUp={(e) => {
+              if (e.which == 13) {
+                handleSearch();
+              }
+            }}
+          >
+            <input
+              ref={focusRef}
+              type="text"
+              placeholder="Enter từ khóa vào đây . . ."
+              value={keySearch}
+              onChange={(e) => setKeySearch(e.target.value)}
+            />
           </div>
         </div>
 

@@ -28,6 +28,10 @@ body {
     transition: all ease-in .2s;
 }
 
+.app {
+    overflow: hidden;
+}
+
 // button primary
 .btn {
     padding: 8px 32px;
@@ -91,6 +95,11 @@ body[data-theme="light"] {
     .header__menu__search .search-input {
         color: $light-color;
     }
+
+    // loading gif
+    .loading {
+        background-color: rgba($color: $dark-color, $alpha: 0.5);
+    }
 }
 
 // theme dark
@@ -147,16 +156,6 @@ body[data-theme="dark"] {
     }
 }
 
-// set title loading
-.loading {
-    display: block;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    letter-spacing: 2px;
-    margin: 5rem 0;
-}
-
 a {
     text-decoration: none;
     color:unset
@@ -194,7 +193,7 @@ iframe {
 }
 
 .main {
-    min-height: 1200px;
+    min-height: 70vh;
     margin: 3rem 0;
 }
 

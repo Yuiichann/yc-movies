@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../../components/Loading/Loading';
 import MoviesList from '../../components/MoviesList/MoviesList';
 import { RootState } from '../../config/store';
 import './HomePage.scss';
@@ -23,7 +24,7 @@ const HomePage = (props: Props) => {
   return (
     <div className="main section">
       {loading ? (
-        <h2 className="loading">Đang tải phim . . .</h2>
+        <Loading />
       ) : (
         <>
           <MoviesList movieList={movies} />
