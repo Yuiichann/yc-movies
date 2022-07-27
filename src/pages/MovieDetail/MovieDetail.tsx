@@ -14,6 +14,9 @@ const MovieDetail = () => {
   const [isAdult, setIsAdult] = useState<boolean>(false);
 
   // scroll to top :<
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [slug]);
 
   // check adult
   useEffect(() => {

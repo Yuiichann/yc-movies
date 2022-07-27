@@ -123,9 +123,9 @@ const Header = () => {
         {/* end btn */}
 
         {/* user */}
-        <div className="header__menu__user">
+        <Link to="/dang-nhap" className="header__menu__user">
           <i className="fa-solid fa-user"></i>
-        </div>
+        </Link>
       </div>
     </div>
   );

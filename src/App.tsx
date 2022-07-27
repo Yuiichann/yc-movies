@@ -10,6 +10,7 @@ import PageNotFound from './components/PageNotFound/PageNotFound';
 import HomePage from './pages/HomePage/HomePage';
 import MovieDetail from './pages/MovieDetail/MovieDetail';
 import Search from './pages/Search/Search';
+import SignIn from './pages/SignIn/SignIn';
 import WatchMovie from './pages/WatchMovie/WatchMovie';
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
             <Route path="/phim/:slug" element={<MovieDetail />} />
             <Route path="/tim-kiem/:keyword" element={<Search />} />
             <Route path="/xem-phim/:slug" element={<WatchMovie />} />
+            <Route path="/dang-nhap" element={<SignIn />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
           <Footer />
