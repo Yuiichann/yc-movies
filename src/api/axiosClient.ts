@@ -14,7 +14,9 @@ const axiosClient = axios.create({
   paramsSerializer: (params: Params) => queryString.stringify(params),
 });
 
-axiosClient.interceptors.request.use(async (config) => config);
+axiosClient.interceptors.request.use((config) => {
+  return config;
+});
 
 axiosClient.interceptors.response.use(
   (response) => {

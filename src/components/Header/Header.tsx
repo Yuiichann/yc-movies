@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { RootState } from '../../config/store';
 import './Header.scss';
 
 const Header = () => {
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user);
   const focusRef = useRef<HTMLInputElement | null>(null);
   const [keySearch, setKeySearch] = useState<string>('');
   const [showSearchMobile, setShowSearchMobile] = useState<boolean>(false);
@@ -40,6 +43,7 @@ const Header = () => {
 
     if (showSearchMobile) {
       setShowSearchMobile(false);
+      focusRef.current?.blur();
     }
   };
 
@@ -123,9 +127,16 @@ const Header = () => {
         {/* end btn */}
 
         {/* user */}
-        <Link to="/dang-nhap" className="header__menu__user">
-          <i className="fa-solid fa-user"></i>
-        </Link>
+
+        {user.isLogin ? (
+          <Link to="/tai-khoan" className="header__menu__user header__menu__user--with-img">
+            <img src={user.current.photoUrl} alt="logo__google" />
+          </Link>
+        ) : (
+          <Link to="/dang-nhap" className="header__menu__user">
+            <i className="fa-solid fa-user"></i>
+          </Link>
+        )}
       </div>
     </div>
   );

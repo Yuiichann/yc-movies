@@ -61,7 +61,7 @@ const WatchMovie: React.FC = () => {
             {/* check du lieu cua server_data da co chua? */}
             {!currEp ? (
               <div style={{ textAlign: 'center' }}>
-                <h1>Chưa có dữ liệu phim. Xin lỗi vì sự chậm trễ này!</h1>
+                <h1>Dữ liệu phim đang được xử lý. Vui lòng chờ trong giây lát . . .</h1>
                 <Link to="/">Về trang chủ</Link>
               </div>
             ) : (

@@ -1,12 +1,18 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ophimApi from './api/ophimApi';
 import './App.scss';
 import { addListMovies } from './app/movieSlice';
+import { setUser, setUserLogOut, User } from './app/userSlice';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import PageNotFound from './components/PageNotFound/PageNotFound';
+import ScrollButton from './components/ScrollButton/ScrollButton';
+import { AppDispatch } from './config/store';
+import { auth } from './firebase/config';
+import Home from './pages/Home/Home';
 import HomePage from './pages/HomePage/HomePage';
 import MovieDetail from './pages/MovieDetail/MovieDetail';
 import Search from './pages/Search/Search';
@@ -14,9 +20,36 @@ import SignIn from './pages/SignIn/SignIn';
 import WatchMovie from './pages/WatchMovie/WatchMovie';
 
 function App() {
-  const [showBtnScroll, setShowBtnScroll] = useState<boolean>(false);
   const [currPage, setCurrPage] = useState<number>(1);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+
+  // handle firebase
+  useEffect(() => {
+    const unsubscribed = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        console.log('User not loggin');
+        dispatch(setUserLogOut());
+        return;
+      }
+
+      const currentUser: User = {
+        id: user.uid,
+        name: user.displayName || '',
+        email: user.email || '',
+        photoUrl: user.photoURL || '',
+      };
+
+      console.log('User logined!!');
+      dispatch(
+        setUser({
+          current: currentUser,
+          isLogin: true,
+          loading: false,
+        })
+      );
+    });
+    return () => unsubscribed();
+  }, []);
 
   // Call api get List movie Latest
   useEffect(() => {
@@ -32,24 +65,6 @@ function App() {
     setCurrPage(currPage + 1);
   }, [currPage]);
 
-  // Show/Hidden button Go To Top
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY >= 300) {
-        setShowBtnScroll(true);
-      } else {
-        setShowBtnScroll(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-  }, []);
-
-  // Handle click btn Go To Top
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <div className="App">
       <div className="container">
@@ -61,17 +76,12 @@ function App() {
             <Route path="/tim-kiem/:keyword" element={<Search />} />
             <Route path="/xem-phim/:slug" element={<WatchMovie />} />
             <Route path="/dang-nhap" element={<SignIn />} />
+            <Route path="/tai-khoan" element={<Home />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
           <Footer />
 
-          {showBtnScroll ? (
-            <div className="scroll-top" onClick={handleScrollToTop}>
-              <img src="https://img.icons8.com/ios-filled/50/000000/circled-chevron-up.png" />
-            </div>
-          ) : (
-            ''
-          )}
+          <ScrollButton />
         </BrowserRouter>
       </div>
     </div>

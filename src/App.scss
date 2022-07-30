@@ -197,6 +197,10 @@ iframe {
     margin: 3rem 0;
 }
 
+.d-flex {
+    @include flex(center, center);
+}
+
 
 // -------------------------- css btn scroll top
 .scroll-top {

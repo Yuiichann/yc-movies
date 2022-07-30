@@ -1,9 +1,12 @@
 # YC Movies 
 
-### Projct Movies create with:
+### Projct YC Movies create with:
     - React
     - Typescript
+    - Node SASS
+    - React-router-dom
     - Redux toolkit
     - Axios
+    - Firebase
     - ....
 
