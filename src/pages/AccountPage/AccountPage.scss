@@ -1,0 +1,14 @@
+@import '../../scss/';
+
+.account {
+    @include flex(center, space-between);
+    flex-wrap: wrap;
+    &-content {
+        @include flex(center, center);
+        gap: 1rem;
+
+        img {
+            border-radius: 50%;
+        }
+    }
+}

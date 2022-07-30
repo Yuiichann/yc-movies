@@ -5,14 +5,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ophimApi from './api/ophimApi';
 import './App.scss';
 import { addListMovies } from './app/movieSlice';
-import { setUser, setUserLogOut, User } from './app/userSlice';
+import { setUser, User } from './app/userSlice';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import ScrollButton from './components/ScrollButton/ScrollButton';
 import { AppDispatch } from './config/store';
 import { auth } from './firebase/config';
-import Home from './pages/Home/Home';
+import Home from './pages/AccountPage/AccountPage';
 import HomePage from './pages/HomePage/HomePage';
 import MovieDetail from './pages/MovieDetail/MovieDetail';
 import Search from './pages/Search/Search';
@@ -28,7 +28,6 @@ function App() {
     const unsubscribed = onAuthStateChanged(auth, async (user) => {
       if (!user) {
         console.log('User not loggin');
-        dispatch(setUserLogOut());
         return;
       }
 
@@ -44,7 +43,6 @@ function App() {
         setUser({
           current: currentUser,
           isLogin: true,
-          loading: false,
         })
       );
     });
@@ -70,6 +68,7 @@ function App() {
       <div className="container">
         <BrowserRouter>
           <Header />
+
           <Routes>
             <Route path="/" element={<HomePage isLoadMore={handleLoadMore} />} />
             <Route path="/phim/:slug" element={<MovieDetail />} />
@@ -77,10 +76,12 @@ function App() {
             <Route path="/xem-phim/:slug" element={<WatchMovie />} />
             <Route path="/dang-nhap" element={<SignIn />} />
             <Route path="/tai-khoan" element={<Home />} />
+            {/* Route Not Found */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
           <Footer />
 
+          {/* Button scroll top */}
           <ScrollButton />
         </BrowserRouter>
       </div>

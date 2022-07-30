@@ -9,13 +9,11 @@ export interface User {
 
 interface Auth {
   isLogin: boolean;
-  loading: boolean;
   current: User;
 }
 
 let initialState: Auth = {
   isLogin: false,
-  loading: true,
   current: {},
 };
 
@@ -26,18 +24,14 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<Auth>) => {
       return action.payload;
     },
-    setStatus: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
-    },
-    setUserLogOut: (state) => {
+    setUserLogOut: () => {
       return {
         current: {},
         isLogin: false,
-        loading: false,
       };
     },
   },
 });
 
-export const { setUser, setStatus, setUserLogOut } = userSlice.actions;
+export const { setUser, setUserLogOut } = userSlice.actions;
 export default userSlice.reducer;
