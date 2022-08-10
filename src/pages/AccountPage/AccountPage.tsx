@@ -1,56 +1,50 @@
 import { signOut } from 'firebase/auth';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setUserLogOut } from '../../app/userSlice';
-import Loading from '../../components/Loading/Loading';
-import { RootState } from '../../config/store';
+import { toast } from 'react-toastify';
+import MoviesList from '../../components/MoviesList/MoviesList';
+import { AppDispatch, RootState } from '../../config/store';
 import { auth } from '../../firebase/config';
 import './AccountPage.scss';
 
 const AccountPage = () => {
-  const user = useSelector((state: RootState) => state.user); // get Current user
-  const dispatch = useDispatch();
+  const { user, favoriteMovies } = useSelector((state: RootState) => state); //
   const navigate = useNavigate();
-  const [fakeApi, setFakeApi] = useState<boolean>(true);
-
-  useEffect(() => {
-    if (!user.isLogin) {
-      navigate('/dang-nhap');
-    } else {
-      setTimeout(() => setFakeApi(false), 800);
-    }
-  }, [user]);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        console.log('Sign Out Successfully!');
-        dispatch(setUserLogOut());
-        navigate('/dang-nhap', { replace: true });
+        toast.success('Đăng xuất thành công!');
+        navigate('/dang-nhap');
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div className="main section">
-      {fakeApi ? (
-        <Loading />
-      ) : (
-        <div className="account">
-          <div className="account-content">
-            <img src={user.current.photoUrl} alt={user.current.name} className="avatar" />
+      <div className="account">
+        <div className="account-content">
+          <img src={user.current.photoUrl} alt={user.current.name} className="avatar" />
 
-            <div className="info">
-              <h2>{user.current.name}</h2>
-              <h5>{user.current.email}</h5>
-            </div>
+          <div className="info">
+            <h2>{user.current.name}</h2>
+            <h5>{user.current.email}</h5>
           </div>
-          <button className="btn" onClick={handleSignOut}>
-            Sign Out
-          </button>
         </div>
-      )}
+        <button className="btn" onClick={handleSignOut}>
+          Sign Out
+        </button>
+      </div>
+
+      <div className="favorite-list">
+        <h1 className="title-movie">Danh sách yêu thích</h1>
+        {favoriteMovies.length > 0 ? (
+          <MoviesList movieList={favoriteMovies} />
+        ) : (
+          <h3>Danh sách rỗng</h3>
+        )}
+      </div>
     </div>
   );
 };

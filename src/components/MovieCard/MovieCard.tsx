@@ -1,8 +1,8 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import apiConfig from '../../api/apiConfig';
 import './MovieCard.scss';
+import LazyLoad from 'react-lazyload';
 
 interface Props {
   name: string;
@@ -17,7 +17,9 @@ const MovieCard = (props: Props) => {
 
   return (
     <Link to={`/phim/${slug}`} className="movie-card">
-      <img src={imageUrl} alt="" className="movie-card-img" onError={handleImage} />
+      <LazyLoad height={200}>
+        <img src={imageUrl} alt="" className="movie-card-img" onError={handleImage} />
+      </LazyLoad>
       <div className="movie-card-info">
         <p className="name">{name}</p>
         <p className="year">{year}</p>

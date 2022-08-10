@@ -1,22 +1,41 @@
+import { addDoc, collection } from 'firebase/firestore';
 import { memo, useEffect, useRef, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import ophimApi from '../../api/ophimApi';
+import { addMovie } from '../../app/favoritesSlice';
 import Loading from '../../components/Loading/Loading';
 import Slider from '../../components/Slider/Slider';
 import Video from '../../components/Video/Video';
+import { AppDispatch, RootState } from '../../config/store';
+import { db } from '../../firebase/config';
 import './MovieDetail.scss';
 import { Movie } from './MovieInterface';
 
 const MovieDetail = () => {
   const { slug } = useParams();
   const [movieInfo, setMovieInfo] = useState<Movie | null>(null);
+  const [inFavoriteList, setInFavoriteList] = useState<boolean>(false);
   const btnTrailer = useRef<HTMLHeadingElement | null>(null);
   const [isAdult, setIsAdult] = useState<boolean>(false);
+  const user = useSelector((state: RootState) => state.user);
+  const favoriteList = useSelector((state: RootState) => state.favoriteMovies);
+  const dispatch = useDispatch<AppDispatch>();
 
   // scroll to top :<
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [slug]);
+
+  // check In favorites List Movies
+  useEffect(() => {
+    if (user.isLogin && movieInfo) {
+      const current = favoriteList.find((item) => item.slug === movieInfo.slug);
+
+      setInFavoriteList(!!current);
+    }
+  }, [movieInfo, favoriteList]);
 
   // check adult
   useEffect(() => {
@@ -53,6 +72,40 @@ const MovieDetail = () => {
     btnTrailer.current?.scrollIntoView({
       behavior: 'smooth',
     });
+  };
+
+  // add favorite List
+  const handleAddFavorite = () => {
+    if (user.isLogin) {
+      if (movieInfo) {
+        // call api update firestore
+        const addMovieFireStore = async () => {
+          await addDoc(collection(db, 'FavoriteMovies'), {
+            slug: movieInfo.slug,
+            name: movieInfo.name,
+            orgin_name: movieInfo.origin_name,
+            user_name: user.current.name,
+            email: user.current.email,
+            uid: user.current.id,
+          });
+
+          console.log('add docs');
+        };
+        addMovieFireStore();
+
+        // update redux then render UI ----- realtime fake
+        dispatch(
+          addMovie({
+            slug: movieInfo.slug,
+            name: movieInfo.name,
+            origin_name: movieInfo.origin_name,
+          })
+        );
+        toast.success('Thêm thành công!');
+      }
+    } else {
+      toast.warn('Vui lòng đăng nhập để thêm phim!!!');
+    }
   };
 
   return (
@@ -105,6 +158,17 @@ const MovieDetail = () => {
                   </p>
                   <p>Thời lượng: {movieInfo.time || '??'}</p>
                   <p>Năm: {movieInfo.year}</p>
+                </div>
+                <div className="info-btn-group">
+                  {inFavoriteList ? (
+                    <button className="btn btn--lg btn--outline">
+                      Xóa khỏi danh sách yêu thích
+                    </button>
+                  ) : (
+                    <button className="btn btn--lg btn--outline" onClick={handleAddFavorite}>
+                      Thêm vào danh sách yêu thích
+                    </button>
+                  )}
                 </div>
                 <div className="info-btn-group">
                   <Link to={`/xem-phim/${movieInfo.slug}`} className="btn btn--lg">
