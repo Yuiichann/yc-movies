@@ -10,11 +10,13 @@ export interface User {
 interface Auth {
   isLogin: boolean;
   current: User;
+  isLoading: boolean;
 }
 
 let initialState: Auth = {
   isLogin: false,
   current: {},
+  isLoading: true,
 };
 
 const userSlice = createSlice({
@@ -28,6 +30,7 @@ const userSlice = createSlice({
       return {
         current: {},
         isLogin: false,
+        isLoading: false,
       };
     },
   },

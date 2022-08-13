@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import './Video.scss';
+import { Player } from 'video-react';
 
 interface Props {
   url_yt?: string;

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { RootState } from '../../config/store';
 import './Header.scss';
 
@@ -38,6 +39,10 @@ const Header = () => {
 
   // handle Search
   const handleSearch = () => {
+    if (keySearch == '') {
+      toast.warn('Vui lòng nhập từ khóa ...');
+      return;
+    }
     navigate(`/tim-kiem/${encodeURI(keySearch)}`);
     setKeySearch('');
 

@@ -2,7 +2,13 @@
 
 .account {
     @include flex(center, space-between);
-    flex-wrap: wrap;
+
+
+    @include mobile {
+        font-size: 1.4rem;
+        flex-direction: column;
+        gap: 2rem;
+    }
     &-content {
         @include flex(center, center);
         gap: 1rem;
@@ -11,6 +17,7 @@
             border-radius: 50%;
         }
     }
+
 }
 
 .favorite-list {

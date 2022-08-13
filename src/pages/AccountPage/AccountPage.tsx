@@ -21,6 +21,7 @@ const AccountPage = () => {
       .catch((err) => console.log(err));
   };
 
+
   return (
     <div className="main section">
       <div className="account">
@@ -32,6 +33,7 @@ const AccountPage = () => {
             <h5>{user.current.email}</h5>
           </div>
         </div>
+
         <button className="btn" onClick={handleSignOut}>
           Sign Out
         </button>

@@ -3,7 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ophimApi from './api/ophimApi';
 import './App.scss';
@@ -44,6 +44,7 @@ function App() {
           setUser({
             isLogin: true,
             current: user,
+            isLoading: false,
           })
         );
       } else {
@@ -120,7 +121,12 @@ function App() {
 
           {/* Button scroll top */}
           <ScrollButton />
-          <ToastContainer autoClose={2000} />
+          <ToastContainer
+            autoClose={2000}
+            style={{ fontSize: '16px' }}
+            pauseOnFocusLoss={true}
+            transition={Zoom}
+          />
         </BrowserRouter>
       </div>
     </div>
