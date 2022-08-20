@@ -39,7 +39,7 @@ const Header = () => {
 
   // handle Search
   const handleSearch = () => {
-    if (keySearch == '') {
+    if (keySearch === '') {
       toast.warn('Vui lòng nhập từ khóa ...');
       return;
     }
@@ -72,7 +72,7 @@ const Header = () => {
         <div
           className="header__menu__search"
           onKeyUp={(e) => {
-            if (e.which == 13) {
+            if (e.which === 13) {
               handleSearch();
             }
           }}
@@ -98,7 +98,7 @@ const Header = () => {
           <div
             className={`search-input-mobile ${showSearchMobile && 'active'}`}
             onKeyUp={(e) => {
-              if (e.which == 13) {
+              if (e.which === 13) {
                 handleSearch();
               }
             }}

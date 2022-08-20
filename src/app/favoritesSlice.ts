@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import { RootState } from '../config/store';
 
 export interface FavoriteMovie {
   slug: string;
@@ -19,6 +17,11 @@ const MovieSlice = createSlice({
     },
     addMovie: (state, action: PayloadAction<FavoriteMovie>) => {
       const newState = [action.payload, ...state];
+      return newState;
+    },
+    removeMovie: (state, action: PayloadAction<number>) => {
+      const newState = [...state];
+      newState.splice(action.payload, 1);
       return newState;
     },
     removeList: () => {

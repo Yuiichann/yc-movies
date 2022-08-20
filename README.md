@@ -2,16 +2,21 @@
 ![Logo](https://ycmovies.vercel.app/favicon.png)
 
 
-<h1></h1>
+# YC Movies - Xem phim HD Vietsub không quảng cáo 🐧🐧🐧
 
 A brief description of what this project does and who it's for
 
 
 ## Tech Stack
 
-**Client:** React, TypeScript, Redux Toolkit, SCSS, Firebase Authentication, Firestore, ...
-
-
+  - React
+  - Typescript
+  - SCSS
+  - Redux toolkit
+  - Firebase Authentication
+  - Firestore
+  - Axios
+  - . . .
 
 
 ## Features
@@ -22,7 +27,6 @@ A brief description of what this project does and who it's for
 - Login With Google Account
 - Save Favorites Movies
 - . . .
-
 
 
 ## Run Locally
@@ -54,5 +58,5 @@ Start the server
 
 ## Authors
 
-- [@Yuiichan](https://www.github.com/Yuiichan)
+- [@Yuiichan](https://www.github.com/Yuiichann)
 

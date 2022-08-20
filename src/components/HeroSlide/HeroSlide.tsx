@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Movies2 } from '../../app/movieSlice';
 import './HeroSlide.scss';
 import apiConfig from '../../api/apiConfig';
+import LazyLoad from 'react-lazyload';
 
 interface Props {
   movieList: Movies2[];
@@ -65,7 +66,9 @@ const SwiperCard = (props: SwiperProps) => {
       <div className="overlay"></div>
       <div className="content">
         <div className="poster">
-          <img src={apiConfig.thumbUrl(`movies/${slug}`)} alt={`${slug}_img`} />
+          <LazyLoad height={200}>
+            <img src={apiConfig.thumbUrl(`movies/${slug}`)} alt={`${slug}_img`} />
+          </LazyLoad>
         </div>
 
         <div className="info">
