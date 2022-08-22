@@ -1,10 +1,10 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
 import { memo, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ophimApi from '../../api/ophimApi';
-import { addMovie } from '../../app/favoritesSlice';
+import { addMovie, removeMovie } from '../../app/favoritesSlice';
 import Loading from '../../components/Loading/Loading';
 import Slider from '../../components/Slider/Slider';
 import Video from '../../components/Video/Video';
@@ -21,6 +21,7 @@ const MovieDetail = () => {
   const [isAdult, setIsAdult] = useState<boolean>(false);
   const user = useSelector((state: RootState) => state.user);
   const favoriteList = useSelector((state: RootState) => state.favoriteMovies);
+  const [idFavoriteMovie, setIdFavoriteMovie] = useState<string>('');
   const dispatch = useDispatch<AppDispatch>();
 
   // scroll to top :<
@@ -32,6 +33,11 @@ const MovieDetail = () => {
   useEffect(() => {
     if (user.isLogin && movieInfo) {
       const current = favoriteList.find((item) => item.slug === movieInfo.slug);
+
+      // Set ID document firebase to handle delete
+      if (current && current.id) {
+        setIdFavoriteMovie(current.id);
+      }
 
       setInFavoriteList(!!current);
     }
@@ -80,7 +86,7 @@ const MovieDetail = () => {
       if (movieInfo) {
         // call api update firestore
         const addMovieFireStore = async () => {
-          await addDoc(collection(db, 'FavoriteMovies'), {
+          const docs = await addDoc(collection(db, 'FavoriteMovies'), {
             slug: movieInfo.slug,
             name: movieInfo.name,
             orgin_name: movieInfo.origin_name,
@@ -90,22 +96,39 @@ const MovieDetail = () => {
           });
 
           console.log('add docs');
+
+          // update redux then render UI ----- realtime fake
+          dispatch(
+            addMovie({
+              slug: movieInfo.slug,
+              name: movieInfo.name,
+              origin_name: movieInfo.origin_name,
+              id: docs.id,
+            })
+          );
+          toast.success('Thêm thành công!');
         };
         addMovieFireStore();
-
-        // update redux then render UI ----- realtime fake
-        dispatch(
-          addMovie({
-            slug: movieInfo.slug,
-            name: movieInfo.name,
-            origin_name: movieInfo.origin_name,
-          })
-        );
-        toast.success('Thêm thành công!');
       }
     } else {
       toast.warn('Vui lòng đăng nhập để thêm phim!!!');
     }
+  };
+
+  // handleDelete Favorites Movies
+  const handleDeleteFavorite = async () => {
+    if (!idFavoriteMovie) {
+      toast.error('Có lỗi gì đó xảy ra!');
+      return;
+    }
+
+    await deleteDoc(doc(db, 'FavoriteMovies', idFavoriteMovie));
+    toast.success('Xóa thành công !!!');
+
+    // remove movie in redux -- realtime fake :)
+    dispatch(removeMovie(idFavoriteMovie));
+
+    setInFavoriteList(false);
   };
 
   return (
@@ -161,7 +184,7 @@ const MovieDetail = () => {
                 </div>
                 <div className="info-btn-group">
                   {inFavoriteList ? (
-                    <button className="btn btn--lg btn--outline">
+                    <button className="btn btn--lg btn--outline" onClick={handleDeleteFavorite}>
                       Xóa khỏi danh sách yêu thích
                     </button>
                   ) : (

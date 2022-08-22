@@ -61,8 +61,9 @@ function App() {
         let moviesList: FavoriteMovie[] = [];
         const query = await getDocs(collection(db, 'FavoriteMovies'));
         query.forEach((doc) => {
+          const id = doc.id;
           const { slug, name, origin_name, uid } = doc.data();
-          uid === user.current.id && moviesList.push({ slug, name, origin_name });
+          uid === user.current.id && moviesList.push({ slug, name, origin_name, id });
         });
 
         dispatch(initList(moviesList));
@@ -122,7 +123,7 @@ function App() {
           {/* Button scroll top */}
           <ScrollButton />
           <ToastContainer
-            autoClose={2000}
+            autoClose={1100}
             style={{ fontSize: '16px' }}
             pauseOnFocusLoss={true}
             transition={Zoom}

@@ -10,7 +10,6 @@ import './AccountPage.scss';
 const AccountPage = () => {
   const { user, favoriteMovies } = useSelector((state: RootState) => state); //
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
 
   const handleSignOut = () => {
     signOut(auth)
@@ -20,7 +19,6 @@ const AccountPage = () => {
       })
       .catch((err) => console.log(err));
   };
-
 
   return (
     <div className="main section">
@@ -44,7 +42,7 @@ const AccountPage = () => {
         {favoriteMovies.length > 0 ? (
           <MoviesList movieList={favoriteMovies} />
         ) : (
-          <h3>Danh sách rỗng</h3>
+          <h3>Danh Sách Rỗng</h3>
         )}
       </div>
     </div>

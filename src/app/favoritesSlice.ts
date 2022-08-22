@@ -4,6 +4,7 @@ export interface FavoriteMovie {
   slug: string;
   name: string;
   origin_name: string;
+  id?: string;
 }
 
 const initialState: FavoriteMovie[] = [];
@@ -19,9 +20,10 @@ const MovieSlice = createSlice({
       const newState = [action.payload, ...state];
       return newState;
     },
-    removeMovie: (state, action: PayloadAction<number>) => {
+    removeMovie: (state, action: PayloadAction<string>) => {
       const newState = [...state];
-      newState.splice(action.payload, 1);
+      const index = state.findIndex((item) => item.id === action.payload);
+      newState.splice(index, 1);
       return newState;
     },
     removeList: () => {
@@ -30,5 +32,5 @@ const MovieSlice = createSlice({
   },
 });
 
-export const { initList, removeList, addMovie } = MovieSlice.actions;
+export const { initList, removeList, addMovie, removeMovie } = MovieSlice.actions;
 export default MovieSlice.reducer;
